@@ -13,7 +13,6 @@ main {
     padding: 50px;
 }
 
-input:focus-visible {
-    outline: none;
-    border-radius: 2px;
+table, th, td {
+    border: 1px solid;
 }

@@ -27,6 +27,8 @@ const lastNameElement = document.getElementById('lastName');
 const emailIdElement = document.getElementById('emailId');
 const phoneNumberElement = document.getElementById('phoneNumber');
 const streetAddress1Element = document.getElementById('streetAddress1');
+const streetAddress2Element = document.getElementById('streetAddress2');
+
 const cityElement = document.getElementById('city');
 const stateElement = document.getElementById('state');
 const zipcodeElement = document.getElementById('zipcode');
@@ -107,10 +109,9 @@ const handleDrinks = (event) => {
     const selectedValue = event.target.value;
 
     drinksError.style.display = selectedValue.length ? 'none' : 'block';
-
     drinkCheckbox.style.display = selectedValue.length ? 'block' : 'none';
     drinkNameLabel.style.display = selectedValue.length ? 'block' : 'none';
-    drinkNameLabel.innerHTML = `${selectedValue}`;
+    drinkNameLabel.innerHTML = `${selectedValue} Large ($1 Extra)`;
     isValidForm[event.target.name] = selectedValue.length > 0;
     disableSubmit();
 }
@@ -152,4 +153,89 @@ function refreshForm() {
     window.location.reload();
 }
 
+const submitTable = () => {
+    const titleElement = document.querySelector('input[name="title"]:checked');
+    const table = document.createElement('table');
+    let checkboxInitialString = '';
+    sourceElements.forEach(sourceElement => {
+         if(sourceElement.checked) {
+             checkboxInitialString = checkboxInitialString + sourceElement.value + " ";
+         }
+    })
+    table.innerHTML = `
+        <tbody>
+            <tr>
+                <td>Title</td>
+                <td>${titleElement.value}</td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td>${firstNameElement.value}</td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>${lastNameElement.value}</td>
+            </tr>
+            <tr>
+                <td>Email Id</td>
+                <td>${emailIdElement.value}</td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td>${phoneNumberElement.value}</td>
+            </tr>
+            <tr>
+                <td>Street Address 1</td>
+                <td>${streetAddress1Element.value}</td>
+            </tr>
+            <tr>
+                <td>Street Address 2</td>
+                <td>${streetAddress2Element.value}</td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>${cityElement.value}</td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td>${stateElement.value}</td>
+            </tr>
+            <tr>
+                <td>ZipCode</td>
+                <td>${zipcodeElement.value}</td>
+            </tr>
+            <tr>
+                <td>How did you hear</td>
+                <td>
+                ${checkboxInitialString}</td>
+            </tr>   
+            <tr>
+                <td>Drink</td>   
+                <td>${drinkSelectElement.value}</td> 
+            </tr>
+            <tr>
+                <td>${drinkNameLabel.textContent}</td>
+                <td>${drinkCheckbox.checked ? 'Added' : 'Not Added'}</td> 
+            </tr>
+            <tr>
+                <td>Any Additional Customization</td>
+                <td>${drinkCheckbox.checked ? drinkCustomText.value: ""}</td> 
+            </tr>
+            <tr>
+                <td>Comments</td>
+                <td>${commentsElement.value}</td> 
+            </tr>      
+            <tr>
+                <td colspan="2">
+                    <button onclick="window.location.reload()"}>Go back to form</button>
+                </td>
+            </tr>  
+        </tbody>
+    `;
+    document.getElementById('container').remove();
+    document.body.append(table);
+
+};
+
+formElement.addEventListener('submit', submitTable);
 resetBtn.addEventListener('click', refreshForm);
