@@ -54,6 +54,26 @@ const validateInput = (event) => {
     disableSubmit();
 };
 
+// const validateCheckbox = (event) => {
+//     const input = event.target;
+//     const inputName = input.name;
+//     const listElements = document.getElementsByName(inputName);
+//
+//     for (let i = 0; i < listElements.length; i++) {
+//         if(listElements[i].checked){
+//             isValidForm[inputName] = true;
+//             break;
+//         }
+//     }
+//
+//     const errorDivision = document.getElementById(`${inputName}_error`);
+//     if (errorDivision) {
+//         errorDivision.style.display = isValidForm[inputName] ? 'none' : 'block';
+//     }
+//     disableSubmit();
+// }
+
+
 firstNameElement.addEventListener('focus', validateInput)
 lastNameElement.addEventListener('focus', validateInput)
 emailIdElement.addEventListener('focus', validateInput)
