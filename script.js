@@ -163,6 +163,7 @@ const submitTable = () => {
          }
     })
     table.innerHTML = `
+        <caption>Submitted Form Result</caption>  
         <tbody>
             <tr>
                 <td>Title</td>
