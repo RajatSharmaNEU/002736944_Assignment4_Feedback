@@ -17,6 +17,7 @@ const isValidForm = {
     'city': false,
     'state': false,
     'zipcode': false,
+    'drinks': false,
     'comments': false,
 }
 
@@ -30,6 +31,14 @@ const stateElement = document.getElementById('state');
 const zipcodeElement = document.getElementById('zipcode');
 const commentsElement = document.getElementById('comments');
 
+const drinkSelectElement = document.getElementById('drinks');
+const drinksError = document.getElementById('drinks_error');
+const drinkNameLabel = document.getElementById('drink_name_label');
+const drinkCheckbox = document.getElementById('drink_name_checkbox');
+const drinkCustomLabel = document.getElementById('drink_custom_label');
+const drinkCustomText = document.getElementById('drink_custom_text');
+const drinkCustomError = document.getElementById('drink_custom_error');
+
 const disableSubmit = () => {
     let disableButton = true;
     for (const isValid in isValidForm) {
@@ -42,8 +51,8 @@ const validateInput = (event) => {
     const input = event.target;
     const inputValue = input.value;
     const inputName = input.name;
-    let isValid = inputValue.length > 0;
-    if(inputRegExs[inputName]){
+    let isValid = inputValue.trim().length > 0;
+    if (inputRegExs[inputName]) {
         isValid = inputValue.trim().match(inputRegExs[inputName]);
     }
     isValidForm[inputName] = isValid;
@@ -74,22 +83,63 @@ const validateInput = (event) => {
 // }
 
 
-firstNameElement.addEventListener('focus', validateInput)
-lastNameElement.addEventListener('focus', validateInput)
-emailIdElement.addEventListener('focus', validateInput)
-phoneNumberElement.addEventListener('focus', validateInput)
-streetAddress1Element.addEventListener('focus', validateInput)
-cityElement.addEventListener('focus', validateInput)
-stateElement.addEventListener('focus', validateInput)
-zipcodeElement.addEventListener('focus', validateInput)
-commentsElement.addEventListener('focus', validateInput)
+firstNameElement.addEventListener('focus', validateInput);
+lastNameElement.addEventListener('focus', validateInput);
+emailIdElement.addEventListener('focus', validateInput);
+phoneNumberElement.addEventListener('focus', validateInput);
+streetAddress1Element.addEventListener('focus', validateInput);
+cityElement.addEventListener('focus', validateInput);
+stateElement.addEventListener('focus', validateInput);
+zipcodeElement.addEventListener('focus', validateInput);
+commentsElement.addEventListener('focus', validateInput);
 
-firstNameElement.addEventListener('blur', validateInput)
-lastNameElement.addEventListener('blur', validateInput)
-emailIdElement.addEventListener('blur', validateInput)
-phoneNumberElement.addEventListener('blur', validateInput)
-streetAddress1Element.addEventListener('blur', validateInput)
-cityElement.addEventListener('blur', validateInput)
-stateElement.addEventListener('blur', validateInput)
-zipcodeElement.addEventListener('blur', validateInput)
-commentsElement.addEventListener('blur', validateInput)
+firstNameElement.addEventListener('blur', validateInput);
+lastNameElement.addEventListener('blur', validateInput);
+emailIdElement.addEventListener('blur', validateInput);
+phoneNumberElement.addEventListener('blur', validateInput);
+streetAddress1Element.addEventListener('blur', validateInput);
+cityElement.addEventListener('blur', validateInput);
+stateElement.addEventListener('blur', validateInput);
+zipcodeElement.addEventListener('blur', validateInput);
+commentsElement.addEventListener('blur', validateInput);
+
+const handleDrinks = (event) => {
+    const selectedValue = event.target.value;
+
+    drinksError.style.display = selectedValue.length ? 'none' : 'block';
+
+    drinkCheckbox.style.display = selectedValue.length ? 'block' : 'none';
+    drinkNameLabel.style.display = selectedValue.length ? 'block' : 'none';
+    drinkNameLabel.innerHTML = `${selectedValue}`;
+    isValidForm[event.target.name] = selectedValue.length > 0;
+    disableSubmit();
+}
+
+const handleDrinkSelection = (event) => {
+    const checked = event.target.checked;
+    drinkCustomLabel.style.display = checked ? 'block' : 'none';
+    drinkCustomText.style.display = checked ? 'block' : 'none';
+
+    if(checked && drinkCustomText.value.trim().length === 0) {
+        drinkCustomError.style.display = 'block';
+        submitBtn.disabled = true;
+    } else {
+        drinkCustomError.style.display = 'none';
+        disableSubmit();
+    }
+}
+
+const validateCustomization = (event) => {
+    const selectedValue = event.target.value.trim();
+    if(selectedValue.length === 0) {
+        drinkCustomError.style.display = 'block';
+        submitBtn.disabled = true;
+    } else {
+        drinkCustomError.style.display = 'none';
+        disableSubmit();
+    }
+}
+drinkSelectElement.addEventListener('change', handleDrinks);
+drinkCheckbox.addEventListener('change', handleDrinkSelection);
+drinkCustomText.addEventListener('focus', validateCustomization);
+drinkCustomText.addEventListener('blur', validateCustomization);

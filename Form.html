@@ -70,7 +70,28 @@
             <input type='checkbox' name="source" value="google" required/> Google
             <input type='checkbox' name="source" value="yelp" required/> Yelp
             <br><br>
-            
+    
+            <label for="drinks">Drinks*</label>
+            <select id="drinks" required name="drinks">
+                <option value="">--Please choose a drink--</option>
+                <option value="Cappuccino Large ($1 Extra)">Cappuccino</option>
+                <option value="Macchiato Large ($1 Extra)">Macchiato</option>
+                <option value="Ristretto Large ($1 Extra)">Ristretto</option>
+                <option value="Americano Large ($1 Extra)">Americano</option>
+                <option value="Mocha Large ($1 Extra)">Mocha</option>
+            </select>
+            <div id="drinks_error" style="display:none; color:red">Please select one drink.</div>
+            <br><br>
+            <label id="drink_name_label" for="drink_name_checkbox" style="display: none">Drink Name</label>
+            <input type="checkbox" id="drink_name_checkbox" style="display: none">
+            <br>
+            <br>
+            <label id="drink_custom_label" for="drink_custom_text" style="display: none">Any additional customizations*:</label>
+            <textarea id="drink_custom_text" rows="5" cols="25" placeholder="Your customisations, write N/A if none" style="display: none"></textarea>
+            <div id="drink_custom_error" style="display:none; color:red">
+                Please write customizations or N/A if none.
+            </div>
+            <br><br>
             <label for="comments">Comments*:</label>
             <textarea name="comments" id="comments" placeholder="Your comments" rows="5" cols="25" required></textarea>
             <div id="comments_error" style="color: red; display: none">Please enter your comments.</div>
