@@ -2,9 +2,9 @@ const emailId = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@nor
 const phoneNumber = /\d{3}-?\d{3}-\d{4}$/;
 const zipcode = /^[0-9]{5}(?:-[0-9]{4})?$/;
 
-
 const inputRegExs = {emailId, phoneNumber, zipcode};
 const submitBtn = document.getElementById('submit');
+const resetBtn = document.getElementById('reset');
 
 const formElement = document.getElementsByTagName('form')[0];
 
@@ -148,3 +148,8 @@ sourceElements.forEach(sourceElement => {
     sourceElement.addEventListener('click', validateCheckbox);
 });
 
+function refreshForm() {
+    window.location.reload();
+}
+
+resetBtn.addEventListener('click', refreshForm);
