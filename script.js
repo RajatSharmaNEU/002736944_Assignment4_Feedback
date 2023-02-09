@@ -17,6 +17,7 @@ const isValidForm = {
     'city': false,
     'state': false,
     'zipcode': false,
+    'source': false,
     'drinks': false,
     'comments': false,
 }
@@ -30,6 +31,7 @@ const cityElement = document.getElementById('city');
 const stateElement = document.getElementById('state');
 const zipcodeElement = document.getElementById('zipcode');
 const commentsElement = document.getElementById('comments');
+const sourceElements = document.getElementsByName('source');
 
 const drinkSelectElement = document.getElementById('drinks');
 const drinksError = document.getElementById('drinks_error');
@@ -63,24 +65,22 @@ const validateInput = (event) => {
     disableSubmit();
 };
 
-// const validateCheckbox = (event) => {
-//     const input = event.target;
-//     const inputName = input.name;
-//     const listElements = document.getElementsByName(inputName);
-//
-//     for (let i = 0; i < listElements.length; i++) {
-//         if(listElements[i].checked){
-//             isValidForm[inputName] = true;
-//             break;
-//         }
-//     }
-//
-//     const errorDivision = document.getElementById(`${inputName}_error`);
-//     if (errorDivision) {
-//         errorDivision.style.display = isValidForm[inputName] ? 'none' : 'block';
-//     }
-//     disableSubmit();
-// }
+const validateCheckbox = (event) => {
+    const inputName = event.target.name;
+    for (let i = 0; i < sourceElements.length; i++) {
+        if(sourceElements[i].checked){
+            isValidForm['source'] = true;
+            break;
+        }
+        isValidForm['source'] = false;
+    }
+
+    const errorDivision = document.getElementById(`${inputName}_error`);
+    if (errorDivision) {
+        errorDivision.style.display = isValidForm[inputName] ? 'none' : 'block';
+    }
+    disableSubmit();
+}
 
 
 firstNameElement.addEventListener('focus', validateInput);
@@ -143,3 +143,8 @@ drinkSelectElement.addEventListener('change', handleDrinks);
 drinkCheckbox.addEventListener('change', handleDrinkSelection);
 drinkCustomText.addEventListener('focus', validateCustomization);
 drinkCustomText.addEventListener('blur', validateCustomization);
+
+sourceElements.forEach(sourceElement => {
+    sourceElement.addEventListener('click', validateCheckbox);
+});
+
